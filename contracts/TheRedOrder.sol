@@ -26,11 +26,12 @@ contract TheRedORder is Context, Ownable, IERC20 {
 
     // TODO: change this out with the final marketing wallet address
     address private _marketingWallet    = 0xdD870fA1b7C4700F2BD7f44238821C26f7392148;
-    address private _liquidityWallet    = 0xdD870fA1b7C4700F2BD7f44238821C26f7392148;
+    address private _liquidityWallet;
 
     // send total supply to the address that has created the contract
     constructor () {
         _balances[msg.sender] = _totalSupply;
+        _liquidityWallet = msg.sender;
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
 
@@ -119,7 +120,7 @@ contract TheRedORder is Context, Ownable, IERC20 {
         // amount to burn of the total supply (2%)
         uint256 burnFee       = amount.div(100).mul(2);
         // amount to send into pool (10%)
-        uint256 liquidityFee  = amount.div(100).mul(10);
+        uint256 liquidityFee  = amount.div(100).mul(8);
 
         // declare the amount the sender has in their account
         uint256 senderBalance = _balances[sender];
